@@ -1,0 +1,44 @@
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/shops
+    username: root
+    password: 123456
+    #寻找视图模板时，将其路径限定在/templates/目录下，并且使用后缀为.html的文件
+#  mvc:
+#    view:
+#      prefix: /templates/
+#      suffix: .html
+
+#Mybatis配置
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+#mybatis:
+#config-location: classpath:mybatis/mybatis-config.xml
+#mapper-locations: classpath:mybatis/mapper/*.xml
+#configuration:
+#map-underscore-to-camel-case: true
+
+
+#阿里云OSS
+aliyun:
+  oss:
+    endpoint: https://oss-cn-hangzhou.aliyuncs.com
+    accessKeyId: LTAI4GCH1vX6DKqJWxd6nEuW
+    accessKeySecret: yBshYweHOpqDuhCArrVHwIiBKpyqSL
+    bucketName: web-tlias
+
+
+#spring事务管理日志
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
+server:
+  port: 8083
+
+
