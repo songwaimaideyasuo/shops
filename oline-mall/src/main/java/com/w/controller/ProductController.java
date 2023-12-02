@@ -35,14 +35,13 @@ public class ProductController extends BaseServlet {
     }
 
     @GetMapping("/findPage")
-    public Result page(@RequestParam Integer cate_id,
-                       @RequestParam(defaultValue = "1") int currentPage,
-                       @RequestParam(defaultValue = "10") int pageSize)
+    public Result findPage(@RequestParam Integer cate_id,
+                           @RequestParam(defaultValue = "1") Integer currentPage,
+                           @RequestParam(defaultValue = "10") Integer pageSize)
     {
         log.info("分页查询");
         PageBean<Product> pageBean = productService.findPage(cate_id, currentPage, pageSize);
-
-        return Result.success("查询成功",pageBean);
+        return Result.success("查询成功", pageBean);
     }
 
 

@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PageBean<Product> findPage(Integer cate_id, int currentPage, int pageSize) {
+    public PageBean<Product> findPage(Integer cate_id, Integer currentPage, Integer pageSize) {
 //        //1.设置分页参数
 //        PageHelper.startPage(currentPage,pageSize);
 //

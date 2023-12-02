@@ -13,7 +13,7 @@ public interface ProductService {
     public List<Product> findByCateId(Integer cate_id);
 
     //根据商品分类进行分页查询
-    public PageBean<Product> findPage(Integer cate_id, int currentPage, int pageSize);
+    public PageBean<Product> findPage(Integer cate_id, Integer currentPage, Integer pageSize);
 
 //    //根据id查询
 //    public Product findById(int id);
