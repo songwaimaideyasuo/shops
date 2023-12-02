@@ -74,9 +74,9 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-//    @Override
-//    public Product findById(int id) {
-//        return productDao.findById(id);
-//    }
+    @Override
+    public Product findById(Integer productId) {
+        return productMapper.findById(productId);
+    }
 
 }

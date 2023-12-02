@@ -15,6 +15,6 @@ public interface ProductService {
     //根据商品分类进行分页查询
     public PageBean<Product> findPage(Integer cate_id, Integer currentPage, Integer pageSize);
 
-//    //根据id查询
-//    public Product findById(int id);
+    //根据id查询
+    public Product findById(Integer id);
 }

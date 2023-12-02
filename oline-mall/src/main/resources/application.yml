@@ -1,16 +1,16 @@
 
 
+
 spring:
+  session:
+    store-type: none
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3307/shops
     username: root
     password: 123456
-    #寻找视图模板时，将其路径限定在/templates/目录下，并且使用后缀为.html的文件
-#  mvc:
-#    view:
-#      prefix: /templates/
-#      suffix: .html
+
+
 
 #Mybatis配置
 mybatis:

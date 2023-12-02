@@ -15,4 +15,6 @@ public interface AddressService {
 
 
     List<Address> list();
+
+    List<Address> findByMemberId(Integer memberId);
 }

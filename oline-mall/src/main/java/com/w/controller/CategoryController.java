@@ -33,7 +33,6 @@ public class CategoryController {
         log.info("查询全部");
         List<Category> categoryList = categoryService.findAll();
         return Result.success("查询成功",categoryList);
-
     }
 
 }

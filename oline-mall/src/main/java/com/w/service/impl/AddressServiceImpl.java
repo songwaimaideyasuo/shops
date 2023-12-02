@@ -19,4 +19,9 @@ public class AddressServiceImpl implements AddressService {
     public List<Address> list() {
        return addressMapper.list();
     }
+
+    @Override
+    public List<Address> findByMemberId(Integer memberId) {
+        return addressMapper.findByMemberId(memberId);
+    }
 }

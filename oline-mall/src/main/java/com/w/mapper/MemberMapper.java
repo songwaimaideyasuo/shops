@@ -15,7 +15,7 @@ public interface MemberMapper {
 //
 //    public void add(Member member);
 
-    @Select("SELECT * FROM shops.member WHERE mobile = #{mobile} and pwd = #{pwd}")
+    @Select("select * from shops.member where mobile = #{mobile} and pwd = #{pwd}")
     Member login(Member member);
 
     @Insert("insert into shops.member(mobile, pwd, register_time) " +

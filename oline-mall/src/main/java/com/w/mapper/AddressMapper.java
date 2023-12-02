@@ -13,4 +13,7 @@ public interface AddressMapper {
 
     @Select("select * from shops.address")
     List<Address> list();
+
+    @Select("select * from shops.address where mbr_id = #{memberId}")
+    List<Address> findByMemberId(Integer memberId);
 }

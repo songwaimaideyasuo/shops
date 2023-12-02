@@ -24,4 +24,5 @@ public class Member implements java.io.Serializable{
     //@JsonProperty("registerTime")
     private LocalDateTime register_time;
 
+
 }

@@ -17,7 +17,7 @@ public class Result {
     private Object data;//后端返回结果数据对象
 
 
-    //增删改 成功响应
+
     public static Result success(){
         return new Result(true,"success",null);
     }

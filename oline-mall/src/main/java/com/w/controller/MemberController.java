@@ -41,55 +41,37 @@ public class MemberController {
     private HttpServletRequest request;
 
     @PostMapping("/login")
-    public Result login(Member member) {
+    public Result login(Member member,HttpSession session) {
         log.info("用户登录：{}", member.getMobile());
-        Member e = memberService.login(member);
-        //创建一个结果对象
-        //Result result = new Result();
-        if (e != null) {
-
+        Member member1 = memberService.login(member);
+        System.out.println("--------------------------------------------");
+        System.out.println(member1);
+        if (member1 != null) {
             //登陆成功之后需要将用户的信息保存到session中
-            HttpSession session = request.getSession();
-            session.setAttribute("member", member);
-
-            return Result.success(member);
-            //result.setMsg("登录成功");
-            //session.setAttribute("e",e);
-
+            //HttpSession session = request.getSession();
+            session.setAttribute("member", member1);
+            return Result.success("登录成功", member1);
         }
         return Result.error("用户名或密码错误");
+    }
 
+    @GetMapping("/get-login")
+    public String getSession(HttpSession session) {
+        Member member3 = (Member)session.getAttribute("member");
+
+        return "Username: " + member3;
     }
 
 
     @GetMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public Result logout(HttpSession session) {
 
         //销毁session
-        HttpSession session = request.getSession();
-
         session.invalidate();
-
-        Result result = new Result();
-        result.setFlag(true);
-
-        //转换成json
-        writeJson(response, result);
-
+        return Result.success();
     }
 
-    private void writeJson(HttpServletResponse response, Object object) {
-        response.setContentType("application/json");
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            String json = mapper.writeValueAsString(object);
-            response.getWriter().print(json);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @PostMapping("/register")
     public Result register(Member member) {
@@ -109,19 +91,11 @@ public class MemberController {
     }
 
     @GetMapping("/findNickName")
-    public Result findNickName(Member member) {
+    public Result findNickName(HttpSession session) {
 
-        //返回的结果对象
-//        Result result = new Result();
-//        result.setFlag(true);
-//        result.setMsg("");
-//        result.setData(member);
-
-        HttpSession session = request.getSession(); //无则创建，有则获取
-        Member member1 = (Member)session.getAttribute("member"); //如果已经登录过member对象不为null，否则为null
-
-        return Result.success(member1);
-
+        //HttpSession session = request.getSession(); //无则创建，有则获取
+        Member member2 = (Member)session.getAttribute("member"); //如果已经登录过member对象不为null，否则为null
+        return Result.success(member2);
 
     }
 
