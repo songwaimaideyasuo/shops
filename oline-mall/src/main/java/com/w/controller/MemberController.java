@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.w.mapper.MemberMapper;
 import com.w.pojo.Member;
 import com.w.pojo.Result;
+import com.w.service.CategoryService;
 import com.w.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +22,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.Map;
 
+import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
 
-@Slf4j
+
 //@RequestMapping(value = "/member/login",produces ="application/json; charset=utf-8")
+@Slf4j
 @RequestMapping("/member")
 @RestController //自动将方法的返回值转为json响应回去
 public class MemberController {
@@ -33,6 +37,9 @@ public class MemberController {
     @Autowired
     private MemberMapper memberMapper;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @PostMapping("/login")
     public Result login(Member member) {
         log.info("用户登录：{}", member.getMobile());
@@ -40,10 +47,18 @@ public class MemberController {
         //创建一个结果对象
         //Result result = new Result();
         if (e != null) {
+
+            //登陆成功之后需要将用户的信息保存到session中
+            HttpSession session = request.getSession();
+            session.setAttribute("member", member);
+
             return Result.success(member);
             //result.setMsg("登录成功");
+            //session.setAttribute("e",e);
+
         }
         return Result.error("用户名或密码错误");
+
     }
 
 
@@ -60,6 +75,7 @@ public class MemberController {
 
         //转换成json
         writeJson(response, result);
+
     }
 
     private void writeJson(HttpServletResponse response, Object object) {
@@ -101,7 +117,11 @@ public class MemberController {
 //        result.setMsg("");
 //        result.setData(member);
 
-        return Result.success(member);
+        HttpSession session = request.getSession(); //无则创建，有则获取
+        Member member1 = (Member)session.getAttribute("member"); //如果已经登录过member对象不为null，否则为null
+
+        return Result.success(member1);
+
 
     }
 

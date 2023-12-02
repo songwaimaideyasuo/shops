@@ -26,6 +26,10 @@ public class Result {
         return new Result(true,"success",data);
     }
 
+    public static Result success(String msg, Object data){
+        return new Result(true,msg,data);
+    }
+
     public static Result success(String msg){
         return new Result(true,msg,null);
     }

@@ -1,20 +1,22 @@
-//package com.w.service.impl;
-//
-//import com.w.mall.dao.CategoryDao;
-//import com.w.mall.dao.impl.CategoryDaoImpl;
-//import com.w.mall.pojo.Category;
-//import com.w.mall.service.CategoryService;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.List;
-//
-//@Service
-//public class CategoryServiceImpl implements CategoryService {
-//
-//    CategoryDao categoryDao = new CategoryDaoImpl();
-//
-//    @Override
-//    public List<Category> findAll() {
-//        return categoryDao.findAll();
-//    }
-//}
+package com.w.service.impl;
+
+
+import com.w.mapper.CategoryMapper;
+import com.w.pojo.Category;
+import com.w.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CategoryServiceImpl implements CategoryService {
+
+    @Autowired
+    private CategoryMapper categoryMapper;
+
+    @Override
+    public List<Category> findAll() {
+        return categoryMapper.findAll();
+    }
+}
