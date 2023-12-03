@@ -31,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
 //            //return;
 //        }
 
-        member.setRegister_time(LocalDateTime.now());
+        member.setRegisterTime(LocalDateTime.now());
         memberMapper.add(member);
 
     }

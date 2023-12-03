@@ -16,13 +16,15 @@ public class Member implements java.io.Serializable{
     private Integer id;
     private String mobile;
     private String pwd;
-    private String nick_name;
-    private String real_name;
+    @JsonProperty("nick_name")
+    private String nickName;
+    @JsonProperty("real_name")
+    private String realName;
     private String email;
     private int gender;
 
-    //@JsonProperty("registerTime")
-    private LocalDateTime register_time;
+    @JsonProperty("register_time")
+    private LocalDateTime registerTime;
 
 
 }

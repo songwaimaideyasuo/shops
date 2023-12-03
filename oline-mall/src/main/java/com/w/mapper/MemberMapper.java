@@ -19,9 +19,9 @@ public interface MemberMapper {
     Member login(Member member);
 
     @Insert("insert into shops.member(mobile, pwd, register_time) " +
-            "values(#{mobile},#{pwd},#{register_time})")
+            "values(#{mobile}, #{pwd}, #{registerTime})")
     void add(Member member);
 
-    @Select("select * from shops.member where mobile = #{mobile}")
-    void findByMobile(String mobile);
+//    @Select("select * from shops.member where mobile = #{mobile}")
+//    void findByMobile(String mobile);
 }
