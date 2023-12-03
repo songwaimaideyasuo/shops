@@ -48,6 +48,9 @@ public class AddressController {
         //调用业务层根据会员id获取对应的address集合
         List<Address> addressList = addressService.findByMemberId(memberId);
 
+        System.out.println("----------------------------------------------------------------");
+        System.out.println(addressList);
+
         return Result.success("查询成功",addressList);
     }
 
@@ -70,7 +73,7 @@ public class AddressController {
         }
         //为地址设置对应的会员的id
         Member member = (Member)session.getAttribute("member");
-        address.setMbr_id(member.getId());
+        address.setMbrId(member.getId());
 
         addressService.addAddress(address);
 

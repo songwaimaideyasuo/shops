@@ -1,5 +1,6 @@
 package com.w.pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,9 @@ public class Address implements java.io.Serializable {
     private String mobile;
     private String street;
     private String zipcode;
-    private Integer mbr_id;
-    private int default_value;
+    @JsonProperty("mbr_id")
+    private Integer mbrId;
+    @JsonProperty("default_value")
+    private int defaultValue;
 
 }
