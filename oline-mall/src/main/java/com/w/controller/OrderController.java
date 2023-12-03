@@ -105,7 +105,7 @@ public class OrderController extends BaseServlet {
             int amount = Integer.parseInt(amounts[i]);
             totalAmout+=amount;
             totalPrice+=product.getPrice()*amount;
-            totalPayPrice+=product.getSale_price()*amount;
+            totalPayPrice+=product.getSalePrice()*amount;
         }
         orders.setPayment_price(totalPayPrice);
         orders.setTotal_price(totalPrice);

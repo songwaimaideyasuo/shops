@@ -27,4 +27,5 @@ public class Member implements java.io.Serializable{
     private LocalDateTime registerTime;
 
 
+
 }

@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 
             Product product = productMapper.findById(Integer.parseInt(ids[i]));
             item.setTotal_price(product.getPrice()* Integer.parseInt(amounts[i]));
-            item.setPayment_price(product.getSale_price()* Integer.parseInt(amounts[i]));
+            item.setPayment_price(product.getSalePrice()* Integer.parseInt(amounts[i]));
             itemMapper.add(item);
         }
     }

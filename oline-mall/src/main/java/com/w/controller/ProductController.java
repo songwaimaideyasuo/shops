@@ -45,9 +45,13 @@ public class ProductController extends BaseServlet {
 
     @GetMapping("/findById")
     public Result findById(@RequestParam Integer productId){
+        log.info("查看{}详情",productId);
 
         //调用业层查询商品详情
         Product product = productService.findById(productId);
+
+        System.out.println("---------------------------------------");
+        System.out.println(product);
 
         return Result.success("查询成功",product);
 
