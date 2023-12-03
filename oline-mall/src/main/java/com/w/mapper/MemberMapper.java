@@ -22,6 +22,6 @@ public interface MemberMapper {
             "values(#{mobile}, #{pwd}, #{registerTime})")
     void add(Member member);
 
-//    @Select("select * from shops.member where mobile = #{mobile}")
-//    void findByMobile(String mobile);
+    @Select("select * from shops.member where mobile = #{mobile}")
+    Member findByMobile(String mobile);
 }

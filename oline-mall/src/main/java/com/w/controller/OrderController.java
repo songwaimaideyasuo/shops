@@ -1,9 +1,7 @@
 package com.w.controller;
 
 
-import com.w.pojo.CartItem;
-import com.w.pojo.Product;
-import com.w.pojo.Result;
+import com.w.pojo.*;
 import com.w.service.AddressService;
 import com.w.service.OrderService;
 import com.w.service.ProductService;
@@ -34,12 +32,16 @@ public class OrderController extends BaseServlet {
     ProductService productService;
     @Autowired
     AddressService addressService;
-//    @Autowired
-//    OrderService orderService;
+
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private OrderService orderService;
 
     @PostMapping("/confirmOrder")
     public Result confirmOrder(String ids, String amounts) {
-
+        log.info("结算页面--显示商品id和数量");
 
         String[] ids1 = ids.split(",");
         String[] amounts1 = amounts.split(",");
@@ -57,65 +59,65 @@ public class OrderController extends BaseServlet {
         return Result.success("查询成功",orderList);
     }
 
+    @PostMapping("/submitOrder")
+    public Result submitOrder() {
+        log.info("结算页面--提交订单，数据库后台生成订单");
 
-//    public void submitOrder(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException{
-//        //获取前台传过来的地址编号
-//        String address_id = request.getParameter("address_id");
-//
-//        //获取商品的编号和数量
-//        String[] ids = request.getParameterValues("ids");
-//        String[] amounts = request.getParameterValues("amounts");
-//
-//        //获取买家的留言
-//        String remark = request.getParameter("remark");
-//
-//
-//        //创建一个订单对象
-//        Orders orders = new Orders();
-//        orders.setStatus(0);        //0：表示未付款，1：表示已付款  2：表示未发货
-//        //产生订单号
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-//        String orderNumber = sdf.format(new Date());
-//        orders.setNumber(orderNumber);
-//
-//        //获取订单地址信息
-//        Address address = addressService.findById(Integer.parseInt(address_id));
-//        orders.setConcat(address.getContact());
-//        orders.setZipcode(address.getZipcode());
-//        orders.setStreet(address.getStreet());
-//        orders.setMobile(address.getMobile());
-//        //设置买的编号
-//        HttpSession session = request.getSession();
-//        Member member = (Member) session.getAttribute("member");
-//        orders.setBuyer_id(member.getId());
-//        //设置备注
-//        orders.setRemark(remark);
-//        //设置订单生效日期
-//        orders.setCreate_time(new Date());
-//
-//
-//        int totalAmout=0;   //总数量
-//        double totalPrice=0;  //总价格
-//        double totalPayPrice=0; //实际支付的总价格
-//        //获取商品信息
-//        for(int i=0; i<ids.length; i++){
-//            Product product = productService.findById(Integer.parseInt(ids[i]));
-//            int amount = Integer.parseInt(amounts[i]);
-//            totalAmout+=amount;
-//            totalPrice+=product.getPrice()*amount;
-//            totalPayPrice+=product.getSale_price()*amount;
-//        }
-//        orders.setPayment_price(totalPayPrice);
-//        orders.setTotal_price(totalPrice);
-//        orders.setTotal_amount(totalAmout);
-//
-//
-//        //添加订单
-//        orderService.add(orders,ids,amounts);
-//
-//        Result result = new Result(true,orders,"订单生成成功!");
-//        writeJson(response,result);
-//    }
+        //获取前台传过来的地址编号
+        String address_id = request.getParameter("address_id");
+
+        //获取商品的编号和数量
+        String[] ids = request.getParameterValues("ids");
+        String[] amounts = request.getParameterValues("amounts");
+
+        //获取买家的留言
+        String remark = request.getParameter("remark");
+
+        //创建一个订单对象
+        Orders orders = new Orders();
+        orders.setStatus(0);        //0：表示未付款，1：表示已付款  2：表示未发货
+        //产生订单号
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        String orderNumber = sdf.format(new Date());
+        orders.setNumber(orderNumber);
+
+        //获取订单地址信息
+        Address address = addressService.findById(Integer.parseInt(address_id));
+        orders.setConcat(address.getContact());
+        orders.setZipcode(address.getZipcode());
+        orders.setStreet(address.getStreet());
+        orders.setMobile(address.getMobile());
+        //设置买的编号
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("member");
+        orders.setBuyer_id(member.getId());
+        //设置备注
+        orders.setRemark(remark);
+        //设置订单生效日期
+        orders.setCreate_time(new Date());
+
+        int totalAmout=0;   //总数量
+        double totalPrice=0;  //总价格
+        double totalPayPrice=0; //实际支付的总价格
+        //获取商品信息
+        for(int i=0; i<ids.length; i++){
+            Product product = productService.findById(Integer.parseInt(ids[i]));
+            int amount = Integer.parseInt(amounts[i]);
+            totalAmout+=amount;
+            totalPrice+=product.getPrice()*amount;
+            totalPayPrice+=product.getSale_price()*amount;
+        }
+        orders.setPayment_price(totalPayPrice);
+        orders.setTotal_price(totalPrice);
+        orders.setTotal_amount(totalAmout);
+
+
+        //添加订单
+        orderService.add(orders,ids,amounts);
+
+        return Result.success("订单生成成功!",orders);
+
+    }
 
 }
 

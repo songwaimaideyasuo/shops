@@ -22,6 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.Map;
 
+import static net.sf.jsqlparser.util.validation.metadata.NamedObject.synonym;
 import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
 
 
@@ -75,18 +76,14 @@ public class MemberController {
 
     @PostMapping("/register")
     public Result register(Member member) {
-        log.info("新增会员{}", member.getMobile());
-        memberService.add(member);
-
-        return Result.success("注册成功");
-
-//        //根据注册的结果返回对应的消息
-//        if ((memberMapper.add(member)) == 1) {
-//            //说明注册成功
-//            return Result.success("注册成功");
-//        } else {
-//            return Result.error("注册失败");
-//        }
+        log.info("注册会员{}", member.getMobile());
+        //判断手机号是否已经注册
+        if ((memberMapper.findByMobile(member.getMobile())).getMobile().equals(member.getMobile())) {
+            return Result.error("注册失败");
+        } else {
+            memberService.add(member);
+            return Result.success("注册成功");
+        }
 
     }
 

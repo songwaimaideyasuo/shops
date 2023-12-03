@@ -7,8 +7,10 @@ import com.w.pojo.Result;
 import com.w.service.AddressService;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,10 +34,9 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
-//    @Autowired
-//    private HttpServletRequest request;
+    @Autowired
+    private HttpServletRequest request;
 
-    //public Result findByMember(HttpSession session) {
     @GetMapping("/findByMember")
     public Result findByMember(HttpSession session) {
 
@@ -52,29 +53,30 @@ public class AddressController {
 
 
     //保存新增的地址
-//    public void saveAddress(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException{
-//
-//        //获取前台传过来的地址信息，并将其它保存到一个Address对象中
-//        Map<String, String[]> parameterMap = request.getParameterMap();
-//        Address address = new Address();
-//        try {
-//            BeanUtils.populate(address,parameterMap);
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();
-//        }
-//        //为地址设置对应的会员的id
-//        HttpSession session = request.getSession();
-//        Member member = (Member)session.getAttribute("member");
-//        address.setMbr_id(member.getId());
-//
-//        //调用业务层将地址信息保存到数据库中
-//        addressService.add(address);
-//
-//        Result r = new Result(true,"添加成功");
-//        writeJson(response,r);
-//    }
+    @PostMapping("/saveAddress")
+    public Result saveAddress(HttpSession session) {
+        log.info("新增地址");
+
+        //获取前台传过来的地址信息，并将其它保存到一个Address对象中
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Address address = new Address();
+        try {
+            //作用是直接将map转换为一个类的对象
+            BeanUtils.populate(address,parameterMap);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        //为地址设置对应的会员的id
+        Member member = (Member)session.getAttribute("member");
+        address.setMbr_id(member.getId());
+
+        addressService.addAddress(address);
+
+        return Result.success("添加成功");
+
+    }
 
 
 }

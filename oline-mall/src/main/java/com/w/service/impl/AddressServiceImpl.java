@@ -24,4 +24,14 @@ public class AddressServiceImpl implements AddressService {
     public List<Address> findByMemberId(Integer memberId) {
         return addressMapper.findByMemberId(memberId);
     }
+
+    @Override
+    public void addAddress(Address address) {
+        addressMapper.addAddress(address);
+    }
+
+    @Override
+    public Address findById(int parseInt) {
+        return addressMapper.findById(parseInt);
+    }
 }

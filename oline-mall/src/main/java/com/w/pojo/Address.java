@@ -1,5 +1,12 @@
 package com.w.pojo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address implements java.io.Serializable {
     private Integer id;
     private String contact;
@@ -9,59 +16,4 @@ public class Address implements java.io.Serializable {
     private Integer mbr_id;
     private int default_value;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public Integer getMbr_id() {
-        return mbr_id;
-    }
-
-    public void setMbr_id(Integer mbr_id) {
-        this.mbr_id = mbr_id;
-    }
-
-    public int getDefault_value() {
-        return default_value;
-    }
-
-    public void setDefault_value(int default_value) {
-        this.default_value = default_value;
-    }
 }

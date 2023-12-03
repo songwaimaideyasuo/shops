@@ -17,9 +17,13 @@ public class Result {
     private Object data;//后端返回结果数据对象
 
 
-
+    //成功响应
     public static Result success(){
         return new Result(true,"success",null);
+    }
+
+    public static Result success(String msg){
+        return new Result(true,msg,null);
     }
     //查询 成功响应
     public static Result success(Object data){
@@ -30,9 +34,7 @@ public class Result {
         return new Result(true,msg,data);
     }
 
-    public static Result success(String msg){
-        return new Result(true,msg,null);
-    }
+
 
     //失败响应
     public static Result error(String msg){

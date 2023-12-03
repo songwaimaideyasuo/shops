@@ -106,7 +106,8 @@
             <scope>test</scope>
         </dependency>
 
-
+        <!--Thymeleaf 模板技术，来替代 JSP 技术，作为前端页面的数据展示。
+            不推荐使用Jsp完成页面的动态渲染，因为jsp需要翻译编译运行-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -115,6 +116,14 @@
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-core</artifactId>
+        </dependency>
+
+        <!--BeanUtils.populate将map转换为一个类的对象-->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
