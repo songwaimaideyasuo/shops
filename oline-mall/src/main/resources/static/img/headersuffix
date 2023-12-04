@@ -1,0 +1,1412 @@
+@[TOC](JavaWeb)
+
+---
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6e7223d94e8d498f934fe51c14bb1ed4.png)
+
+# 前端Web开发
+
+HTML：负责网页的结构（页面元素和内容）。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/0a0327005282423498a2fdedce08126e.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/b3fbe593b3784bb2aa9bb1d6d23e9436.png)
+ CSS：负责网页的表现（页面元素的外观、位置等页面样式，如：颜色、大小等）。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/b4f5b5728a534e4b822978259ee11d2d.png)
+
+
+javaScript（Js）脚本语言。用来控制网页行为的，它能使网页交互。（交互效果）
+
+
+## javaScript
+
+### 1.JS引入
+
+```html
+<!-- 内部脚本 -->
+<script>
+     alert('Hello JS')
+</script>
+
+<!-- 外部脚本 -->
+<script src="js/demo.js"></script>
+```
+
+
+### 2.JS基础语法
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/3cc098e795694765a1bb825636df552d.png)
+
+JS输出语句
+
+
+```html
+<script>
+//方式一: 弹出警告框
+window.alert("hello js");
+
+//方式二: 写入html页面中
+document.write("hello js");
+
+//方式三: 控制台输出,在console可以看到
+console.log("hello js");
+</script>
+```
+
+
+JS变量
+
+var
+var声明的变量可以接受任何数据类型的值，变量可以多次赋值，后面值把前面覆盖
+var声明的变量的作用于是全局的
+
+```html
+<script>
+    //var定义变量
+    var a = 10;
+    a = "张三";
+    alert(a);
+    var a = 20;
+    alert(a);
+</script>
+```
+
+
+let
+局部变量，不能重新定义
+
+```html
+    <script>
+        {
+            let x = 1;
+            x = 2;
+            alert(x);
+        }
+    </script>
+```
+
+
+
+const
+常量，不能重新定义，不能多次赋值
+
+
+
+### 3.JS函数
+
+```html
+<script>
+    //定义函数
+    function add(a,b){
+        return a + b;
+    }
+
+    //函数调用
+    var result = add(10,20);
+    alert(result);
+</script>
+```
+
+
+### 4.JS对象
+
+Array
+
+特点：长度可变，类型可变
+
+```html
+<script>
+    //定义数组
+    var arr = new Array(1,2,3,4);
+    console.log(arr[0]);
+    
+    arr[10] = 50;
+    
+    for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i]);
+    }
+    
+    //forEach：遍历数组中有值的元素
+    arr.forEach(function(e) {
+        console.log(e)
+    });
+    
+    //push：添加元素到数组尾部
+    arr.push(7,8,9);
+    console.log(arr);
+    
+    //splice：删除元素
+    arr.splice(2,2)   //从数组下标为2开始删，删2个
+    console.log(arr);
+</script>
+```
+
+
+
+String
+
+```html
+<script>
+    //定义字符串
+    var str = "Hello";
+</script>
+```
+
+
+
+自定义对象
+
+```html
+<script>
+    //自定义对象
+    var user = {
+        name:"Tom",
+        age:20,
+        gender:"male",
+        eat: function(){
+            alert("用膳");
+        }
+    };
+
+    //获取对象中的属性
+    console.log(user.name);
+    //对象中方法的调用
+    user.eat();
+</script>
+```
+
+
+JSON
+
+作为数据的载体，在网络中传输。
+
+json必须使用双引号
+
+```html
+<script>
+    //定义json
+    var jsonstr = '{"name":"Tom", "age":"18", "addr":["北京","上海","西安"]}';
+    alert(jsonstr.name)   //结果为undefined，因为jsonstr是一个字符串，要是一个对象才可以
+
+    //json字符串--js对象
+    var obj = JSON.parse(jsonstr);
+    alert(obj.name)
+
+    //js对象--json字符串
+    var jsonStr = JSON.stringify(jsonstr);
+</script>
+```
+
+## BOM
+
+浏览器对象模型，运行JavaScript与浏览器对话，JavaScript将浏览器的各个部分封装为对象
+
+BOM中提供了5个对象：
+主要学习下面两个对象
+window：浏览器窗口对象
+
+```html
+<script>
+    //BOM
+
+    //window
+    //获取（window可以省略）
+    window.alert("Hello BOM");
+    
+    //方法
+    //confirm - 对话框
+    var flag = window.confirm("你确认删除该记录吗？");
+    alert(flag);
+
+    //定时器 - setInterval -- 周期性的执行某个函数
+    var i = 0;
+    setInterval(function(){
+        i++
+        console.log("定时器执行了"+i+"次")
+    })
+
+    //定时器 - srtTimeout --延迟指定时间执行一次
+    setTimeout(function(){
+        alert("JS")
+    },3000);
+</script>
+```
+
+location：地址栏对象
+
+```html
+<script>
+    //location：地址栏对象
+    alert(location.href)
+
+    location.href = "https://www.baidu.com/index.htm"
+</script>
+```
+
+
+## DOM文档对象模型
+
+将 HTML 文档的各个组成部分封装为对象
+
+获取DOM中的元素对象（Element对象 ，也就是标签）
+操作Element对象的属性（标签的属性）
+
+```html
+<body>
+    <img id="h1" src="img/off.gif">  <br><br>
+
+    <div class="cls">教育</div>   <br>
+    <div class="cls">程序员</div>  <br>
+
+    <input type="checkbox" name="hobby"> 电影
+    <input type="checkbox" name="hobby"> 旅游
+    <input type="checkbox" name="hobby"> 游戏
+</body>
+
+<script>
+    //1. 获取Element元素
+    //1.1 获取元素-根据ID获取
+    var img = document.getElementById('h1');
+    alert(img);
+
+    //1.2 获取元素-根据标签获取 - div
+    var divs = document.getElementsByTagName('div');
+    for (let i = 0; i < divs.length; i++) {
+        alert(divs[i]);
+    }
+
+    //1.3 获取元素-根据name属性获取
+    var ins = document.getElementsByName('hobby');
+    for (let i = 0; i < ins.length; i++) {
+        alert(ins[i]);
+    }
+
+    //1.4 获取元素-根据class属性获取
+    var divs = document.getElementsByClassName('cls');
+    for (let i = 0; i < divs.length; i++) {
+        alert(divs[i]);
+    }
+
+    //2. 查询参考手册, 属性、方法
+    var divs = document.getElementsByClassName('cls');
+    var div1 = divs[0];
+    
+    div1.innerHTML = "英才教育";
+
+</script>
+```
+
+
+## JS事件监听
+
+事件：发生在HTML元素上的 “事情”
+
+事件绑定
+
+```html
+    <script>
+        function on(){
+            alert("按钮1被点击了...")
+        }
+        
+        document.getElementById('btn2').onclick = function(){
+        alert("按钮2被点击了...");
+    }
+    </script>
+```
+
+常见事件
+![在这里插入图片描述](https://img-blog.csdnimg.cn/ffc2396bb1154320a245b759090422d8.png)
+
+
+## Vue
+
+前端js框架
+
+Vue快速入门
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue-快速入门</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" v-model="message">
+        {{message}}
+    </div>
+
+</body>
+<script>
+    //定义Vue对象
+    new Vue({
+        el: "#app", //vue接管区域
+        data:{
+            message: "Hello Vue"
+        }
+    })
+</script>
+</html>
+```
+
+### Vue常用指令
+
+v-bind、v-model、v-on、v-if、v-show、v-for
+
+### Vue的生命周期
+
+主要掌握mounted（挂载完成）
+
+
+
+## Ajax
+
+与服务器进行数据交互
+
+异步交互：可以在不重新加载整个页面的情况下，与服务器交换数据并更新部分网页的技术。
+
+
+### Axios 
+
+
+## 前端工程化
+
+### 环境准备
+
+Vue-dli是官方提供的一个脚手架，用于快速生成Vue的项目模板
+
+Vue-cli主要提供了如下功能：
+统一的目录结构
+本地调试
+热部署
+单元测试
+集成打包上线
+
+环境依赖：NodeJS
+
+
+### NodeJS安装和Vue-cli安装
+
+先下NodeJS，再去下Vue-cli
+NodeJS下载地址 https://nodejs.org/en
+
+Vue-cli安装
+使用管理员身份运行命令行，在命令行中，执行如下指令：
+npm install -g @vue/cli
+
+
+### vue项目
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/ea22be7203384cd6b66134677d938489.png)
+
+#### Vue组件库Element
+
+安装ElementUI的组件库
+npm i element-ui -S
+
+Vue项目开发流程：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/499cb2b1b38b43838b0c8289b92360f8.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6c46a0a20c73427986fc8e43319130bf.png)
+
+##### 组件的使用
+
+官方文档：https://element.eleme.cn/#/zh-CN/component/installation
+
+button 按钮
+Table 表格
+Pagination分页
+Dialog对话框
+Form表单
+
+
+### Vue路由
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/fb39958b53c1403fbace77c5fc9b0265.png)
+
+
+### Nginx打包部署
+
+需要安装Nginx
+nginx默认占用80，要改端口
+
+
+
+# 后端Web开发
+
+## Maven
+
+ 用于管理和构建java项目的工具
+
+1. 依赖管理
+2. 统一项目结构
+3. 项目构建
+
+
+## SpringBoot
+
+## HTTP协议
+
+超文本传输协议，规定了浏览器和服务器之间数据传输的规则
+
+特点：
+基于TCP协议：面向连接，安全
+基于请求-响应模型：一次请求对应一次响应
+HTTP是无状态协议，对于事物处理没有记忆能力。每次请求-响应都是独立的
+
+优点：速度快
+缺点：多次请求间不能共享数据
+
+### 请求数据格式
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/58744e7dbd384255a8ef7948245626ce.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/9462715315e54fb79c9efb1618e05174.png)
+
+### 响应数据格式
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2f2852a5ed0843ab95339f6fd0e5d9f8.png)
+
+### 协议解析
+
+## Web服务器
+
+一个软件程序，对HTTP协议的操作进行封装，让Web开发更加快捷。
+
+主要功能：提供网上信息的浏览服务
+
+
+## 请求响应
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/563cbb18b4ee44c3b33fffb73c18d714.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/e9ea5f81682f4197a59bc8b242a9d813.png)
+
+### 请求参数的接收
+
+简单参数
+
+实体参数
+
+数组集合
+
+json
+![在这里插入图片描述](https://img-blog.csdnimg.cn/c5d42c716a604be083f5617ddcda5437.png)
+
+路径参数
+
+### 响应
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/28bfe01954274dd1919b2c4348bc51db.png)
+
+
+
+## 分层解耦
+
+三层架构：
+复用性强、便与维护、利于扩展
+![在这里插入图片描述](https://img-blog.csdnimg.cn/fb09c1f85f5d4aebbb6825168f39da2c.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/a3e444262f6a4cc5bda03aea96144eaa.png)
+
+
+内聚：软件中各个功能模块内部的功能关系
+耦合：衡量软件中各个层/模块之间的依赖、关联的程度
+软件设计原则：高内聚低耦合
+
+
+控制反转（IOC）：对象的创建控制权由程序自身转移到外部（容器）
+依赖注入（DI）：容器为应用程序提供运行时，所依赖的资源，称之为依赖注入
+Bean对象：IOC容器中创建、管理的对象
+
+
+### IOC&DI入门
+
+1.Service层及Dao层的实现类，交给IOC容器管理。
+加@Component注解
+
+2.为Controller及Service注入运行时，依赖对象。
+加@Autowired注解
+
+3.运行测试。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/fb76a661cd464558a760702b8b507c57.png)
+
+
+### IOC详解
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/389e785d9b0f4de89d6012e52bc9666b.png)
+
+Bean组件扫描
+默认扫描范围是启动类所在包及其子包，
+通过在启动类中加@ComponentScan({"dao","com.itheima"})可以修改
+
+
+### DI详解
+
+
+## MySQL
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/7ebf5f365b154fb9a294e9d164ce7dcb.png)
+
+
+MySQL数据模型
+关系型数据库：建立在关系模型基础上，由多张相互连接的二维表组成的数据库。
+
+### SQL
+
+SQL：操作关系型数据库的编程语言
+
+SQL语句通常分为4大类（我们主要学前面3个）
+DDL：数据定义语言
+DML：数据操作语言
+DQL：数据查询语言
+DCL：数据控制语言
+
+### 数据库设计
+
+DDL
+数据库操作
+
+表操作
+创建
+
+约束：作用于表中字段上的规则，用于限制表中的数据
+
+DQL
+基础查询
+select 字段列表
+from 表名列表
+
+条件查询 
+where 条件列表
+
+分组查询
+group by 分组字段
+having 分组之后的条件
+
+排序查询
+order by 排序字段列表
+
+分页查询
+limit 分页参数
+
+
+## 多表设计
+
+在进行数据库表设计时，会根据业务需求及业务模块之间的关系，分析并设计表结构，由于业务之间相互关联，所以各个表结构之间也存在各种联系。
+
+### 1对多
+
+在数据库表中多的一方，添加字段，来关联1的一分的主键
+
+### 1对1
+
+在任意一方加入外键，关联另外一方的主键，并且设置外键为唯一的（UNIQUE）
+![在这里插入图片描述](https://img-blog.csdnimg.cn/1b512e0aaf634eb4a0b913eec0376bfc.png)
+
+### 多对多
+
+建立第三张中间表，中间表至少包含两个外键，分别关联两方主键
+![在这里插入图片描述](https://img-blog.csdnimg.cn/48be58c8854444c99525a9f0f5876223.png)
+
+
+案例：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/38e0ce7d3bc2499490b52154ce3a8fdb.png)
+
+## 多表查询
+
+在做多表查询时，需要消除无效的笛卡尔积
+
+### 连接查询
+
+#### 内连接
+
+
+```sql
+-- ============================= 内连接 ==========================
+-- A. 查询员工的姓名 , 及所属的部门名称 (隐式内连接实现)
+select tb_emp.name,tb_dept.name from tb_emp,tb_dept where tb_emp.dept_id = tb_dept.id;
+
+
+-- B. 查询员工的姓名 , 及所属的部门名称 (显式内连接实现)
+select tb_emp.name,tb_dept.name from tb_emp inner join tb_dept on tb_emp.dept_id = tb_dept.id;
+```
+
+#### 外连接
+
+##### 左外连接
+
+查询左表所有数据（包含两表交集部分数据）
+
+##### 右外连接
+
+查询右表所有数据（包含两表交集部分数据）
+
+```sql
+-- =============================== 外连接 ============================
+-- A. 查询员工表 所有 员工的姓名, 和对应的部门名称 (左外连接)
+select tb_emp.name,tb_dept.name from tb_emp left join tb_dept on tb_emp.dept_id = tb_dept.id;
+
+
+
+-- B. 查询部门表 所有 部门的名称, 和对应的员工名称 (右外连接)
+select tb_emp.name,tb_dept.name from tb_emp right join tb_dept on tb_emp.dept_id = tb_dept.id;
+```
+
+### 子查询
+
+```sql
+-- 标量子查询
+-- A. 查询 "教研部" 的所有员工信息
+-- a.先查"教研部"的部门ID - tb_dept
+select id from tb_dept where name = '教研部';
+-- b.再查该部门ID下的员工信息
+select * from tb_emp where dept_id = (select id from tb_dept where name = '教研部');
+
+
+-- 列子查询
+-- A. 查询 "教研部" 和 "咨询部" 的所有员工信息
+select id from tb_dept where name = '教研部' or name = '咨询部';
+select * from tb_emp where dept_id in (select id from tb_dept where name = '教研部' or name = '咨询部');
+
+
+-- 行子查询
+-- A. 查询与 "韦一笑" 的入职日期 及 职位都相同的员工信息 ;
+select entrydate,job from tb_emp where name = '韦一笑';
+
+select * from tb_emp where (entrydate,job) = (select entrydate,job from tb_emp where name = '韦一笑');
+
+
+-- 表子查询
+-- A. 查询入职日期是 "2006-01-01" 之后的员工信息 , 及其部门信息
+select * from tb_emp where entrydate > '2006-01-01';
+
+select e.*,tb_dept.name from (select * from tb_emp where entrydate > '2006-01-01') e ,tb_dept where e.id = tb_dept.id;
+```
+
+
+### 事务
+
+一组操作的集合。事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，及这些操作要么同时成功或者失败。
+
+四大特征：
+原子性、一致性、隔离性、持久性
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2aa7c2b487294fec88a6ef04a15b5493.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/481d774805d7443090a912c1788264ed.png)
+
+
+```sql
+-- ================================== 事务 ====================================
+-- 开启事务
+start transaction ;
+
+-- 删除部门
+delete from tb_dept where id = 4;
+-- 删除部门下的员工
+delete from tb_emp where dept_id = 4;
+
+-- 提交事务
+commit ;
+
+-- 上面如果有个操作失败，回滚事务
+rollback ;
+
+select * from tb_dept;
+select * from tb_emp;
+```
+
+
+### 索引
+
+物理的对数据库表中一列或多列的值进行排序的一种存储结构，帮助数据库高效获取数据。 
+![在这里插入图片描述](https://img-blog.csdnimg.cn/0bc19e44953044fea6610e9fe564eaed.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/55e804cc3e8c4420ac3bd93a4cdd316f.png)
+
+
+```sql
+-- ================================== 索引 ====================================
+-- 创建
+create index idx_emp_name on tb_emp(name);
+
+-- 查询
+show index from tb_emp;
+
+-- 删除
+drop index idx_emp_name on tb_emp;
+```
+
+
+##  MyBatis
+
+持久层框架，支持自拟定SQL、存储过程以及高级映射。
+
+MyBatis免除了几乎所有的JDBC代码以及设置参数和获取结果集的工作。
+
+让idea对sql语句有提示
+![在这里插入图片描述](https://img-blog.csdnimg.cn/09510c9945bb49efac82f7dabbc25d2f.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/7751224ff4f7428d89a2944445be1968.png)
+
+### JDBC
+
+使用java语言操作关系型数据库的一套API（应用程序编程接口）
+![在这里插入图片描述](https://img-blog.csdnimg.cn/ac3b1ac8beaa460eaa6e3944849a51f0.png)
+
+
+### 数据库连接池
+
+数据库连接池是个容器，负责分配、管理数据库连接
+
+标准接口：DataSource
+
+### lombok工具包
+
+是一个实用的java类库，能通过注解的形式自动生成构造器，并可以自动化生成日志变量，简化java开发
+
+
+### 基础操作
+
+#### 配置mybatis日志
+
+```properties
+#配置mybatis日志,输出到指定控制台
+mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
+```
+
+控制台输出：
+
+```xml
+==>  Preparing: delete from mybatis.emp where id = ?
+==> Parameters: 15(Integer)
+<==    Updates: 1
+```
+
+#### 预编译SQL
+
+性能更强、更安全（防止sql注入）
+![在这里插入图片描述](https://img-blog.csdnimg.cn/1474059f7bd246048c21603068c67cdb.png)
+
+
+sql注入：通过操作输入的数据来修改事先定义的SQL语句，以达到执行代码对服务器进行攻击的方法。
+
+sql注入案例：
+因为是复制的jar包，所以要修改jar包中数据库配置信息
+解压 jar包命令
+jar -xvf [jar包名称] 
+如下结构
+    │  xxx.jar
+    │
+    └─BOOT-INF
+        └─classes
+                application.yml
+修改application.yml后
+增量更新命令：
+jar -uvf0 xxx.jar BOOT-INF
+
+
+没有采用预编译的jar
+![在这里插入图片描述](https://img-blog.csdnimg.cn/1436e429829a4c219dfeb740c8ac7167.png)
+采用预编译的jar
+![在这里插入图片描述](https://img-blog.csdnimg.cn/ed4db35474da4f218dde04ab63167fbe.png)
+
+Mybatis中
+delete from mybatis.emp where id = ?{id}
+?{id}是拼接符，会直接把值拼接到sql语句中
+
+delete from mybatis.emp where id = #{id}
+#{id}就是预编译，执行sql时，将#{id}替换为？，生成预编译sql，会自动设置参数值
+
+
+#### 新增主键返回
+
+```java
+@Options(keyProperty = "id",useGeneratedKeys = true) //会自动将生成的主键值，赋给emp对象的id属性
+```
+
+### 数据封装
+
+实体类属性名和数据库表查询返回的字段名一致，mybatis会自动封装
+
+对于不一致的，推荐在配置中开启mybatis的驼峰命名自动映射开关
+
+```xml
+#开启mybatis的驼峰命名自动映射开关
+mybatis.configuration.map-underscore-to-camel-case=true
+```
+
+
+模糊查询
+name like '%${name}%'
+
+推荐这样写：
+name like concat('%',#{name},'%')
+
+
+### XML映射文件
+
+一些简单的增删改查功能推荐使用Mybatis注解。
+如果需要实现复杂的SQL功能，建议使用XML来配置映射语句。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/19cc9aca14bb4f5997235483b0a7dbca.png)
+
+官方文档地址：
+https://mybatis.net.cn/getting-started.html
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+```
+
+### 动态查询
+
+随着用户的输入或外部条件的变化而变化的SQL语句
+
+```xml
+    <sql id="commonSelect">
+        select id, username, password, name, gender, image, job, entrydate, dept_id, create_time, update_time
+        from emp
+    </sql>
+
+
+    <!-- 动态更新员工-->
+    <update id="update2">
+        update emp
+        <set>
+            <if test="username != null">username = #{username},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="job != null">job = #{job},</if>
+            <if test="entrydate != null">entrydate = #{entrydate},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <!-- 查询员工 -->
+    <!--resultType: 单条记录封装的类型-->
+    <select id="list" resultType="com.itheima.pojo.Emp">
+        <include refid="commonSelect"/>
+        <where>
+            <if test="name != null">
+                name like concat('%', #{name}, '%')
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="begin != null and end != null">
+                and entrydate between #{begin} and #{end}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+```
+
+```java
+    //动态条件查询
+    public List<Emp> list(String name, Short gender, LocalDate begin , LocalDate end);
+
+
+    //动态更新员工
+    public void update2(Emp emp);
+```
+
+#### 批量操作
+
+```xml
+    <!--批量删除员工 (12,13,14)-->
+    <!--
+        collection: 遍历的集合
+        item: 遍历出来的元素
+        separator: 分隔符
+        open: 遍历开始前拼接的SQL片段
+        close: 遍历结束后拼接的SQL片段
+    -->
+    <delete id="deleteByIds">
+        delete from emp where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+```
+
+```java
+    //批量删除员工
+    public void deleteByIds(List<Integer> ids);
+```
+
+
+
+## 登录认证
+
+### 会话技术
+
+会话：用户打开浏览器，访问web服务器资源，会话建立，直到有一方断开连接，会话结束。（一次会话中可以包含多次请求和响应）
+
+会话跟踪：一种维护浏览器状态的方法，服务器需要识别多次请求是否来自同以浏览器，以便在同一次会话的多次请求间共享数据。
+
+会话跟踪方案：
+客户端会话跟踪技术：Cookie
+服务端会话跟踪技术：Session
+令牌技术
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/6c1d5260f15f4ac39420c988cd8369a0.png)
+
+
+```java
+package com.w.controller;
+
+import com.w.pojo.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ * Cookie、HttpSession演示
+ */
+@Slf4j
+@RestController
+public class SessionController {
+
+    //设置Cookie
+    @GetMapping("/c1")
+    public Result cookie1(HttpServletResponse response){
+        response.addCookie(new Cookie("login_username","itheima")); //设置Cookie/响应Cookie
+        return Result.success();
+    }
+
+    //获取Cookie
+    @GetMapping("/c2")
+    public Result cookie2(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals("login_username")){
+                System.out.println("login_username: "+cookie.getValue()); //输出name为login_username的cookie
+            }
+        }
+        return Result.success();
+    }
+
+
+
+    @GetMapping("/s1")
+    public Result session1(HttpSession session){
+        log.info("HttpSession-s1: {}", session.hashCode());
+
+        session.setAttribute("loginUser", "tom"); //往session中存储数据
+        return Result.success();
+    }
+
+    @GetMapping("/s2")
+    public Result session2(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        log.info("HttpSession-s2: {}", session.hashCode());
+
+        Object loginUser = session.getAttribute("loginUser"); //从session中获取数据
+        log.info("loginUser: {}", loginUser);
+        return Result.success(loginUser);
+    }
+}
+
+```
+
+## 登录校验
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/13e1f5573feb4b95a79bdcd6e9fa8b3e.png)
+
+### JWT令牌
+
+定义了一种简洁、自包含的格式，用于在通信双方以json数据格式安全的传输信息。由于数字签名的存在，这些信息是可靠的。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/f0afc337f98549ce8d88d757edd249e5.png)
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/2477b87b98014574a881bf8140f23cac.png)
+
+
+```xml
+        <!--JWT令牌-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+```
+
+```java
+package com.w;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.swing.plaf.PanelUI;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+@SpringBootTest
+class TliasWebManagementApplicationTests {
+
+    //生成JWT
+    @Test
+    public void textGenJwt() {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id",1);
+        claims.put("name","tom");
+
+        String jwt = Jwts.builder()
+                .signWith(SignatureAlgorithm.HS256,"swmdys") //签名算法
+                .setClaims(claims) //定义令牌的有效期
+                .setExpiration(new Date(System.currentTimeMillis() + 3600*1000)) //设置有效期为1h
+                .compact();
+        System.out.println(jwt);
+    }
+
+
+    //解析JWT
+    @Test
+    public void testParseJwt(){
+        Claims claims = Jwts.parser()
+                .setSigningKey("swmdys")
+                .parseClaimsJws("eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidG9tIiwiaWQiOjEsImV4cCI6MTcwMTE4NjU5OH0.U78XufCd3VcWsPR72kUUx0RamKfDGZAahJ8oF3V2_YM")
+                .getBody();
+        System.out.println(claims);
+    }
+
+}
+
+```
+
+JWT令牌工具类
+
+```java
+package com.w.utils;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
+import java.util.Map;
+
+public class JwtUtils {
+
+    private static String signKey = "swmdys";
+    private static Long expire = 43200000L;
+
+    /**
+     * 生成JWT令牌
+     * @param claims JWT第二部分负载 payload 中存储的内容
+     * @return
+     */
+    public static String generateJwt(Map<String, Object> claims){
+        String jwt = Jwts.builder()
+                .addClaims(claims)
+                .signWith(SignatureAlgorithm.HS256, signKey)
+                .setExpiration(new Date(System.currentTimeMillis() + expire))
+                .compact();
+        return jwt;
+    }
+
+    /**
+     * 解析JWT令牌
+     * @param jwt JWT令牌
+     * @return JWT第二部分负载 payload 中存储的内容
+     */
+    public static Claims parseJWT(String jwt){
+        Claims claims = Jwts.parser()
+                .setSigningKey(signKey)
+                .parseClaimsJws(jwt)
+                .getBody();
+        return claims;
+    }
+}
+
+```
+
+
+### 过滤器Filter
+
+过滤器可以把对资源的请求拦截下来，从而实现一些特殊的功能
+如：登录校验、统一编码处理、敏感字符处理等。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/d45bcb5031184296a989d26977354e23.png)
+
+
+添加@ServletComponentScan //开启了对servlet组件的支持
+
+```java
+package com.itheima;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+
+@ServletComponentScan //开启了对servlet组件的支持
+@SpringBootApplication
+public class TliasWebManagementApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(TliasWebManagementApplication.class, args);
+    }
+
+}
+```
+
+#### 过滤器链
+
+一个web应用中，可以配置多个过滤器，这多个过滤器就形成了一个过滤链
+
+配置的过滤器，优先级按过滤器类名首字母自然排序
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/1fd6814b54b34f32a22ba7ac03efe2fd.png)
+
+#### 登录校验Filter
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/a1412b8803954aa6875668096d595051.png)
+
+
+```java
+package com.w.filter;
+
+
+import com.alibaba.fastjson.JSONObject;
+import com.w.pojo.Result;
+import com.w.utils.JwtUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@Slf4j
+@WebFilter(urlPatterns = "/*")
+public class LoginCheckFilter implements Filter {
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        //HttpServletRequest是ServletRequest的子类
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
+
+        //1.获取请求url。
+        String url = req.getRequestURL().toString();
+        log.info("请求的url: {}",url);
+
+        //2.判断请求url中是否包含login，如果包含，说明是登录操作，放行。
+        if(url.contains("login")){
+            log.info("登录操作, 放行...");
+            chain.doFilter(request,response);
+            return;//让代码不再往下执行
+        }
+
+        //3.获取请求头中的令牌（token）。
+        String jwt = req.getHeader("token");
+
+        //4.判断令牌是否存在，如果不存在，返回错误结果（未登录）。
+        if(!StringUtils.hasLength(jwt)){
+            log.info("请求头token为空,返回未登录的信息");
+            Result error = Result.error("NOT_LOGIN");
+            //手动转换 对象--json --------> 阿里巴巴fastJSON
+            String notLogin = JSONObject.toJSONString(error);
+            resp.getWriter().write(notLogin);
+            return;
+        }
+
+
+        //5.解析token，如果解析失败，返回错误结果（未登录）。
+        try {
+            JwtUtils.parseJWT(jwt);
+        } catch (Exception e) {//jwt解析失败
+            e.printStackTrace();
+            log.info("解析令牌失败, 返回未登录错误信息");
+            Result error = Result.error("NOT_LOGIN");
+            //手动转换 对象--json --------> 阿里巴巴fastJSON
+            String notLogin = JSONObject.toJSONString(error);
+            resp.getWriter().write(notLogin);
+            return;
+        }
+
+        //6.放行。
+        log.info("令牌合法, 放行");
+        chain.doFilter(request, response);
+
+    }
+}
+
+```
+
+
+### 拦截器Interceptor
+
+Spring框架提供的一种动态拦截方法调用的机制，类似于过滤器。
+
+作用：拦截请求，在指定的方法调用前后，根据业务需要执行预先设定的代码。
+
+定义拦截器，实现HandlerInterceptor接口
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/4aecdd72db2b43d8b859e9a94a9f95ff.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/7581ffefe1cf4cd29d22c7dd0a00dfd6.png)
+
+## 异常处理
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/1e2a845319ce4c72beea96eece19a201.png)
+
+### 全局异常处理器
+
+```java
+package com.w.exception;
+
+import com.w.pojo.Result;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+/**
+ * 全局异常处理器
+ */
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)//捕获所有异常
+    public Result ex(Exception ex){
+        ex.printStackTrace();
+        return Result.error("对不起,操作失败,请联系管理员");
+    }
+
+}
+
+```
+
+
+## Spring事务管理
+
+添加@Transactional
+
+作用：将当前的方法交给spring进行事务管理，方法执行前，开启事务；成功执行完毕，提交事务；出现异常，回滚事务。
+
+
+```xml
+#spring事务管理日志
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
+```
+
+
+### 事务属性回滚
+
+默认情况下，只有出现RuntimeException的、才会回滚异常。
+
+rollbackFor属性用于控制出现何种异常类型，回滚事务。
+
+@Transactional(rollbackFor = Exception.class) //spring事务管理(所有异常都会回滚)
+
+### 事务传播行为
+
+当一个事务被另一个事务方法调用时，这个事务方法和另一个事务变为了一个事务。
+
+当我们不希望事务之间相互影响，可以操作一个新的
+propagation = Propagation.REQUIRES_NEW
+
+#### 案例
+
+解散部门时，无论成功还是失败，都要记录操作日志
+
+```java
+@Service
+public class DeptLogServiceImpl implements DeptLogService {
+
+    @Autowired
+    private DeptLogMapper deptLogMapper;
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void insert(DeptLog deptLog) {
+        deptLogMapper.insert(deptLog);
+    }
+}
+```
+
+```java
+    @Transactional
+    @Override
+    public void delete(Integer id) throws Exception {
+        try {
+            deptMapper.deleteById(id); //根据ID删除部门数据
+
+            //int i = 1/0;
+            //if(true){throw new Exception("出错啦...");}
+
+            empMapper.deleteByDeptId(id); //根据部门ID删除该部门下的员工
+        } finally {
+            DeptLog deptLog = new DeptLog();
+            deptLog.setCreateTime(LocalDateTime.now());
+            deptLog.setDescription("执行了解散部门的操作,此次解散的是"+id+"号部门");
+            deptLogService.insert(deptLog);
+        }
+    }
+```
+
+## AOP基础
+
+AOP：面向特定方法编程。
+
+作用：代码无侵入、减少重复代码、提高开发效率、维护方便
+
+场景：记录操作日志、权限控制、事务管理等
+
+```xml
+        <!--AOP-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+```
+
+### 案例
+
+部分功能运行较慢，定位耗时较长的业务方法，此时需要统计每一个业务的执行耗时？
+
+```java
+@Slf4j
+@Component //当前类交给IOC容器管理
+@Aspect //AOP类
+public class TimeAspect {
+
+    @Around("execution(* com.itheima.service.impl.DeptServiceImpl.*(..))") //切入点表达式
+    //@Around("com.itheima.aop.MyAspect1.pt()")
+    public Object recordTime(ProceedingJoinPoint joinPoint) throws Throwable {
+        //1. 记录开始时间
+        long begin = System.currentTimeMillis();
+
+        //2. 调用原始方法运行
+        Object result = joinPoint.proceed();
+
+        //3. 记录结束时间, 计算方法执行耗时
+        long end = System.currentTimeMillis();
+        log.info(joinPoint.getSignature()+"方法执行耗时: {}ms", end-begin);
+
+        return result;
+    }
+
+}
+```
+
+
+## Web后端总结
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/767145cbba4e405883de82635491c1ad.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/410e7bc3994140509eee725f69d81906.png)

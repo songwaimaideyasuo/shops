@@ -118,8 +118,8 @@ public class PayController extends BaseServlet {
     @GetMapping("/alipayReturnNotice")
     public void alipayReturnNotice() throws IOException {
 
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=UTF-8");
+//        response.setCharacterEncoding("utf-8");
+//        response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
 
